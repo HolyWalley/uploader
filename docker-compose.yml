@@ -13,7 +13,6 @@ services:
     environment:
       - AWS_REGION=eu-central-1
       - RAILS_ENV=production
-      - RAILS_SERVE_STATIC_FILES=true
   backend:
     <<: *app
     command: sh -c "rm -rf /app/tmp/pids/server.pid && rails s"
