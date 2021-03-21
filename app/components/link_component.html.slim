@@ -1,0 +1,13 @@
+div class="button-group #{ klass }"
+  = text_field_tag :url, url, class: "input uploader__input", disabled: true, id: "copyToClipboardInput"
+  = link_to "Copy", "", class: "button uploader__button uploader__button_copy", onclick: "copyToClipboard(event);"
+
+javascript:
+  function copyToClipboard(e) {
+    e.preventDefault();
+    let input = document.getElementById('copyToClipboardInput');
+    input.disabled = false;
+    input.select();
+    document.execCommand('copy');
+    input.disabled = true;
+  }

@@ -1,0 +1,7 @@
+.uploader
+  = form_tag form.url, method: :post, authenticity_token: false, enctype: "multipart/form-data", class: "uploader__form" do
+    - form.fields.each do |(key, value)|
+      = hidden_field_tag key, value
+    = file_field_tag :file
+    = submit_tag nil, { name: nil, class: "button uploader__button uploader__button_submit" }
+  = render LinkComponent.new(url: url, klass: "uploader__copy-container")
