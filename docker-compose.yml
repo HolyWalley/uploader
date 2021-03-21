@@ -1,0 +1,31 @@
+version: '3.0'
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+      args:
+        RAILS_ENV: 'production'
+    image: file-uploader/backend
+    tmpfs:
+      - /tmp
+    environment:
+      - AWS_REGION=eu-central-1
+      - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+  backend:
+    <<: *app
+    command: sh -c "rm -rf /app/tmp/pids/server.pid && rails s"
+    volumes:
+      - public:/app/public
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - public:/var/www/public
+volumes:
+  public:
